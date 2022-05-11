@@ -10,6 +10,7 @@ var userSchema = new Schema({
         type: String,
         require: true
     },
+
     email:{
         type: String,
     },
@@ -17,6 +18,9 @@ var userSchema = new Schema({
         type: String,
     },
     userImage: { type: String },
+    country:{
+        type: String,
+    }
 })
 
 userSchema.pre('save', function (next) {

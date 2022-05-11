@@ -10,7 +10,7 @@ var express = require('express')
 var Food = require('../models/food')
 const mongoose = require('mongoose')
 const multer =require('multer')
-
+var UserSettings = require('../models/usersettings')
 var functions = {
     addNew: function (req, res) {
         
@@ -21,6 +21,7 @@ var functions = {
             var newUser = User({
                 name: req.body.name,
                 password: req.body.password
+             
             });
             newUser.save(function (err, newUser) {
                 if (err) {
@@ -99,7 +100,7 @@ update : function(req, res){
     //new obj available to you due to upload.single('productImage') this middleware being executed first
     req.file.path = req.file.path.replace(/\\/g, '/') ;
     console.log("New: " +req.file ); 
-    User.updateOne({name: req.body.name},{ $set: {email: req.body.email, about: req.body.about , userImage: req.file.path  }}  , { useFindAndModify: false})
+    User.updateOne({name: req.params.name},{ $set: {email: req.body.email, about: req.body.about , userImage: req.file.path  }}  , { useFindAndModify: false})
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
@@ -117,11 +118,13 @@ update : function(req, res){
             .status(400)
             .send({ message : "Data to update can not be empty"})
     }
+    const name = req.params.name;
+    console.log(name);
     console.log(req.file); 
     //new obj available to you due to upload.single('productImage') this middleware being executed first
     req.file.path = req.file.path.replace(/\\/g, '/') ;
     console.log("New: " +req.file ); 
-    User.updateOne({name: req.body.name},{ $set: {email: req.body.email, about: req.body.about , userImage: req.file.path  }}  , { useFindAndModify: false})
+    User.updateOne({name: name},{ $set: {email: req.body.email, about: req.body.about , userImage: req.file.path  }}  , { useFindAndModify: false})
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
@@ -399,7 +402,28 @@ console.log(error)
               error: err
             });
           });
-  }
+  },
+  updateUser : function(req, res){
+    if(!req.body){
+        return res
+            .status(400)
+            .send({ message : "Data to update can not be empty"})
+    }
+    const name = req.params.name;
+    console.log(name);
+
+    User.updateOne({name: name},{ $set: { country: req.body.country }}  , { useFindAndModify: false})
+        .then(data => {
+            if(!data){
+                res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
+            }else{
+                res.send(data)
+            }
+        })
+        .catch(err =>{
+            res.status(500).send({ message : "Error Update user information"})
+        })
+}
 }
 
 module.exports = functions

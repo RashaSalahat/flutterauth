@@ -55,13 +55,13 @@ router.post('/authenticate', actions.authenticate)
 //@route GET /getinfo
 router.get('/getinfo', actions.getinfo)
 
-router.post('/updateOne', upload.single('userImage'),actions.update)
+router.post('/updateOne/:name', upload.single('userImage'),actions.update)
 
 router.get('/getall/:name',actions.getUsers)
 
 router.get('/showprofiles', actions.getAllDoc)
 
-router.post('/update/:name', actions.updatewithoutimage)
+router.post('/update/:name', actions.updateUser)
 
 
 //fitness
@@ -99,5 +99,8 @@ router.get('/api/food', actions.getAllDocFood)
 
 router.post('/insertFood',upload.single('userImage'),actions.addFood)
 
+router.post('/updateuser/:name', actions.updateUser)
 
+
+router.post('/updatee/:name', actions.updatewithoutimage)
 module.exports = router
