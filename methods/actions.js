@@ -11,6 +11,7 @@ var Food = require('../models/food')
 const mongoose = require('mongoose')
 const multer =require('multer')
 var UserSettings = require('../models/usersettings')
+var Appointment= require('../models/appointment')
 var functions = {
     addNew: function (req, res) {
         
@@ -86,6 +87,7 @@ getUsers : async (req, res) =>{
         res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
     })
   },
+
 
   //var myquery = { address: "Valley 345" },
   //var newvalues = { $set: { address: "Canyon 123" } },
@@ -168,15 +170,12 @@ getAllDoc : async(req, res) =>{
 
 addNewMass:  (req, res) =>{
         
-    if ( ((req.body.name==false))   ||   ((req.body.Age==false))   ||   ((req.body.Height==false))  ||   ((req.body.Mass==false)) ) {
+    if ( ((req.body.name==false))   ||     ((req.body.Height==false))  ||   ((req.body.Mass==false)) ) {
 
             res.json({success: false, msg: 'Enter all fields'}) }
     else {
         var newMass = Mass({
-            userid : req.body.userid,
             name: req.body.name,
-            Age: req.body.Age,
-            AgeType: req.body.AgeType,
             Height:req.body.Height,
             Mass:req.body.Mass,
         });
@@ -202,10 +201,10 @@ getAllMass : async(req, res) =>{
   },
 //FindOneMass
 getOneMass : async (req, res) =>{
-const userid = req.params.userid;
-console.log(userid);
+const name = req.params.name;
+console.log(name);
 try{
-    const result = await Mass.findOne({userid: req.params.userid},)
+    const result = await Mass.findOne({name: req.params.name},)
     res.send(result)
   }catch(error){
     console.log(error)
@@ -214,7 +213,6 @@ try{
 
 addNewSleep: function (req, res) {
         var newSleep = Sleep({
-            userid: req.body.userid,
             name: req.body.name,
             Mon: req.body.Mon,
             Tue:req.body.Tue,
@@ -247,10 +245,10 @@ getAllSleep : async(req, res) =>{
 
   
 getOneSleep : async (req, res) =>{
-const userid = req.params.userid;
-console.log(userid);
+const name = req.params.name;
+console.log(name);
 try{
-const result = await Sleep.findOne({userid: req.params.userid},)
+const result = await Sleep.findOne({name: req.params.name},)
 res.send(result)
 }catch(error){
 console.log(error)
@@ -259,7 +257,6 @@ console.log(error)
 
   addNewWorkout: function (req, res) {
     var newWorkout = Workout({
-        userid: req.body.userid,
         name: req.body.name,
         Mon: req.body.Mon,
         Tue:req.body.Tue,
@@ -292,7 +289,7 @@ try {
 
   addNewWorkout: function (req, res) {
     var newWorkout = Workout({
-        userid: req.body.userid,
+        name: req.body.name,
         name: req.body.name,
         Mon: req.body.Mon,
         Tue:req.body.Tue,
@@ -316,10 +313,10 @@ try {
 },
 
 getOneWorkout : async (req, res) =>{
-const userid = req.params.userid;
-console.log(userid);
+const name = req.params.name;
+console.log(name);
 try{
-const result = await Workout.findOne({userid: req.params.userid},)
+const result = await Workout.findOne({name: req.params.name},)
 res.send(result)
 }catch(error){
 console.log(error)
@@ -327,7 +324,6 @@ console.log(error)
 },
 addNewMilk: function (req, res) {
 var newMilk = Milk({
-    userid: req.body.userid,
     name: req.body.name,
     Mon: req.body.Mon,
     Tue:req.body.Tue,
@@ -358,10 +354,10 @@ console.log(error)
 }
 },
 getOneMilk : async (req, res) =>{
-const userid = req.params.userid;
-console.log(userid);
+const name = req.params.name;
+console.log(name);
 try{
-const result = await Milk.findOne({userid: req.params.userid},)
+const result = await Milk.findOne({name: req.params.name},)
 res.send(result)
 }catch(error){
 console.log(error)
@@ -423,7 +419,58 @@ console.log(error)
         .catch(err =>{
             res.status(500).send({ message : "Error Update user information"})
         })
-}
+},
+addNewAppointment: function (req, res) {
+        
+    if ( ((req.body.username==false))   ||   ((req.body.Doctorname==false)) ) {
+
+            res.json({success: false, msg: 'Enter all fields'}) }
+    else {
+        var newAppointment = Appointment({
+            appointmentid : req.body.username + req.body.Doctorname,
+            username: req.body.username,
+            Doctorname: req.body.Doctorname,
+            date:req.body.date,
+            status:"pending"
+         
+        });
+        newAppointment.save(function (err, newUser) {
+            if (err) {
+                res.json({success: false, msg: 'Failed to save'})
+            }
+            else {
+                res.json({success: true, msg: 'Successfully saved'}),
+                console.log("id:" +  appointmentid)
+
+            
+                
+            }
+        })
+        
+    }
+},
+getAllApp: async (req, res) =>{
+    const username= req.params.username;
+    try{
+    const result = await Appointment.find({username: req.params.username},)
+    res.send(result)
+    }catch(error){
+    console.log(error)
+    }
+    },
+
+    getDrName: async (req, res) =>{
+        const username= req.params.username;
+        try{
+            const result = await Appointment.find({username: req.params.username},)
+            //result = result.length
+            var name = result.find('Doctorname')
+            res.send(name)
+        }catch(error){
+            console.log(error)
+        }
+    },
+
 }
 
 module.exports = functions

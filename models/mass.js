@@ -1,19 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var healthSchema = new Schema({
-    userid:{
-        type: String,
-        require: true
-    },
     name: {
         type: String,
         require: true
-    },
-    Age: {
-        type: String,
-    },
-    AgeType: {
-        type: String,
     },
     Height: {
         type: String,

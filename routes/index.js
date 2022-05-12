@@ -71,7 +71,7 @@ router.post('/addWorkout', actions.addNewWorkout)
 
 router.get('/showWorkout', actions.getAllWorkout)
 
-router.get('/getWorkout/:userid',actions.getOneWorkout)
+router.get('/getWorkout/:name',actions.getOneWorkout)
 //finduser
 //router.get('/showusers/:id', actions.find)
 
@@ -81,19 +81,19 @@ router.post('/addMass', actions.addNewMass)
 
 router.get('/showMass', actions.getAllMass)
 
-router.get('/getMass/:userid',actions.getOneMass)
+router.get('/getMass/:name',actions.getOneMass)
 
 router.post('/addSleep', actions.addNewSleep)
 
 router.get('/showSleep', actions.getAllSleep)
 
-router.get('/getSleep/:userid',actions.getOneSleep)
+router.get('/getSleep/:name',actions.getOneSleep)
 
 router.post('/addMilk', actions.addNewMilk)
 
 router.get('/showMilk', actions.getAllMilk)
 
-router.get('/getMilk/:userid',actions.getOneMilk)
+router.get('/getMilk/:name',actions.getOneMilk)
 
 router.get('/api/food', actions.getAllDocFood)
 
@@ -101,6 +101,12 @@ router.post('/insertFood',upload.single('userImage'),actions.addFood)
 
 router.post('/updateuser/:name', actions.updateUser)
 
-
 router.post('/updatee/:name', actions.updatewithoutimage)
+
+router.post('/addapp', actions.addNewAppointment)
+
+router.get('/app/:username', actions.getAllApp)
+
+router.get('/getDRname/:username',actions.getDrName)
+
 module.exports = router

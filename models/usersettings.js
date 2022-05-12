@@ -6,9 +6,6 @@ var userSchema = new Schema({
         require: true
     },
 
-    userid:{
-        type: String,
-    },
     country:{
         type: String,
     }
