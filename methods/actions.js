@@ -12,6 +12,14 @@ const mongoose = require('mongoose')
 const multer =require('multer')
 var UserSettings = require('../models/usersettings')
 var Appointment= require('../models/appointment')
+var cityModel = require ('../models/city.js')
+var clinicModel = require ('../models/clinic.js')
+var Gamedb = require ('../models/game.js')
+var PharmModel = require ('../models/pharm.js')
+var StoreModel = require ('../models/store.js')
+var DoctorModel = require ('../models/doctor.js')
+
+
 var functions = {
     addNew: function (req, res) {
         
@@ -375,7 +383,7 @@ console.log(error)
         console.log(req.file); 
         //new obj available to you due to upload.single('productImage') this middleware being executed first
         req.file.path = req.file.path.replace(/\\/g, '/') ;
-       const Food= new FoodModel({
+       const food= new Food({
           _id: new mongoose.Types.ObjectId(),
           foodname: req.body.foodname,
           time: req.body.time,
@@ -384,7 +392,7 @@ console.log(error)
           description:req.body.description,
           foodImage: req.file.path 
         });
-        Food
+        food
           .save()
           .then(result => {
             console.log(result);
@@ -426,6 +434,7 @@ addNewAppointment: function (req, res) {
 
             res.json({success: false, msg: 'Enter all fields'}) }
     else {
+      var appointmentid = req.body.username + req.body.Doctorname
         var newAppointment = Appointment({
             appointmentid : req.body.username + req.body.Doctorname,
             username: req.body.username,
@@ -470,6 +479,57 @@ getAllApp: async (req, res) =>{
             console.log(error)
         }
     },
+
+    getAllDoccity : async(req, res) =>{
+        try {
+          const result = await cityModel.find()
+          res.send(result)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+
+      getAllDocclinic : async(req, res) =>{
+        try {
+          const result = await clinicModel.find()
+          res.send(result)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      getAllDocgame : async(req, res) =>{
+        try {
+          const result = await Gamedb.find()
+          res.send(result)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      getAllDocpharm : async(req, res) =>{
+        try {
+          const result = await PharmModel.find()
+          res.send(result)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      getAllDocstore : async(req, res) =>{
+        try {
+          const result = await StoreModel.find()
+          res.send(result)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      getAllDoctors : async(req, res) =>{
+        try {
+          const result = await DoctorModel.find()
+          res.send(result)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+
 
 }
 

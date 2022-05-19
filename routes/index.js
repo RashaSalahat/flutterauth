@@ -97,7 +97,7 @@ router.get('/getMilk/:name',actions.getOneMilk)
 
 router.get('/api/food', actions.getAllDocFood)
 
-router.post('/insertFood',upload.single('userImage'),actions.addFood)
+router.post('/insertFood',upload.single('foodImage'),actions.addFood)
 
 router.post('/updateuser/:name', actions.updateUser)
 
@@ -108,5 +108,13 @@ router.post('/addapp', actions.addNewAppointment)
 router.get('/app/:username', actions.getAllApp)
 
 router.get('/getDRname/:username',actions.getDrName)
+
+
+router.get('/pharm',actions.getAllDocpharm)
+router.get('/clinic',actions.getAllDocclinic)
+router.get('/city',actions.getAllDoccity)
+router.get('/store',actions.getAllDocstore)
+router.get('/game',actions.getAllDocgame)
+router.get('/doctors',actions.getAllDoctors)
 
 module.exports = router
