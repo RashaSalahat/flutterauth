@@ -117,4 +117,6 @@ router.get('/store',actions.getAllDocstore)
 router.get('/game',actions.getAllDocgame)
 router.get('/doctors',actions.getAllDoctors)
 
+router.get('/getApp/:username',actions.getAcceptedApp)
+
 module.exports = router

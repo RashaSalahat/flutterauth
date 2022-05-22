@@ -529,7 +529,15 @@ getAllApp: async (req, res) =>{
           console.log(error)
         }
       },
-
+        getAcceptedApp: async (req, res) =>{
+          const username= req.params.username;
+          try{
+          const result = await Appointment.find({username: req.params.username, status:"Accepted"},)
+          res.send(result)
+          }catch(error){
+          console.log(error)
+          }
+          },
 
 }
 
