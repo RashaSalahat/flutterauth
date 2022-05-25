@@ -212,7 +212,7 @@ getOneMass : async (req, res) =>{
 const name = req.params.name;
 console.log(name);
 try{
-    const result = await Mass.findOne({name: req.params.name},)
+    const result = await Mass.find({name: req.params.name ,},).limit(1).sort({$natural:-1})
     res.send(result)
   }catch(error){
     console.log(error)
@@ -256,7 +256,7 @@ getOneSleep : async (req, res) =>{
 const name = req.params.name;
 console.log(name);
 try{
-const result = await Sleep.findOne({name: req.params.name},)
+const result = await Sleep.find({name: req.params.name},).limit(1).sort({$natural:-1})
 res.send(result)
 }catch(error){
 console.log(error)
@@ -324,7 +324,7 @@ getOneWorkout : async (req, res) =>{
 const name = req.params.name;
 console.log(name);
 try{
-const result = await Workout.findOne({name: req.params.name},)
+const result = await Workout.find({name: req.params.name},).limit(1).sort({$natural:-1})
 res.send(result)
 }catch(error){
 console.log(error)
@@ -365,7 +365,7 @@ getOneMilk : async (req, res) =>{
 const name = req.params.name;
 console.log(name);
 try{
-const result = await Milk.findOne({name: req.params.name},)
+const result = await Milk.find({name: req.params.name},).limit(1).sort({$natural:-1})
 res.send(result)
 }catch(error){
 console.log(error)
@@ -529,7 +529,7 @@ getAllApp: async (req, res) =>{
           console.log(error)
         }
       },
-        getAcceptedApp: async (req, res) =>{
+    getAcceptedApp: async (req, res) =>{
           const username= req.params.username;
           try{
           const result = await Appointment.find({username: req.params.username, status:"Accepted"},)
@@ -540,5 +540,4 @@ getAllApp: async (req, res) =>{
           },
 
 }
-
 module.exports = functions

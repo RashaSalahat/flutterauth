@@ -20,6 +20,10 @@ var userSchema = new Schema({
     userImage: { type: String },
     country:{
         type: String,
+    },
+    resetLink:{
+        data:String,
+        default:''
     }
 })
 
